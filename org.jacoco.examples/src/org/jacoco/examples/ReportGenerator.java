@@ -112,7 +112,7 @@ public class ReportGenerator {
 	private IBundleCoverage analyzeStructure() throws IOException {
 		final CoverageBuilder coverageBuilder = new CoverageBuilder();
 		final Analyzer analyzer = new Analyzer(
-				execFileLoader.getExecutionDataStore(), coverageBuilder);
+				execFileLoader.getExecutionDataStore(), coverageBuilder, null);
 
 		analyzer.analyzeAll(classesDirectory);
 

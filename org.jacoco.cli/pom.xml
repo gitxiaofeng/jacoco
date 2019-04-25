@@ -118,6 +118,14 @@
                     <exclude>module-info.class</exclude>
                   </excludes>
                 </filter>
+                <filter>
+                  <artifact>org.eclipse.jgit:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
               </filters>
             </configuration>
           </execution>

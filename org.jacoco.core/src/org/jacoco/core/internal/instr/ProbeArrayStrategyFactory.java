@@ -78,7 +78,7 @@ public final class ProbeArrayStrategyFactory {
 
 	private static ProbeCounter getProbeCounter(final ClassReader reader) {
 		final ProbeCounter counter = new ProbeCounter();
-		reader.accept(new ClassProbesAdapter(counter, false), 0);
+		reader.accept(new ClassProbesAdapter(counter, false, null), 0);
 		return counter;
 	}
 

@@ -81,7 +81,7 @@ public abstract class ValidationTestBase {
 
 	private void analyze(final ExecutionDataStore store) throws IOException {
 		final CoverageBuilder builder = new CoverageBuilder();
-		final Analyzer analyzer = new Analyzer(store, builder);
+		final Analyzer analyzer = new Analyzer(store, builder, null);
 		for (ExecutionData data : store.getContents()) {
 			analyze(analyzer, data);
 		}

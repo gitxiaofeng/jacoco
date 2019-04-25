@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
@@ -51,6 +53,8 @@ public class Analyzer {
 
 	private final StringPool stringPool;
 
+	private List<String> classPool = new ArrayList<String>();
+
 	/**
 	 * Creates a new analyzer reporting to the given output.
 	 * 
@@ -61,10 +65,12 @@ public class Analyzer {
 	 *            class
 	 */
 	public Analyzer(final ExecutionDataStore executionData,
-			final ICoverageVisitor coverageVisitor) {
+			final ICoverageVisitor coverageVisitor, List<String> classPool) {
 		this.executionData = executionData;
 		this.coverageVisitor = coverageVisitor;
 		this.stringPool = new StringPool();
+		this.classPool = classPool;
+		System.out.println("class pool init: " + classPool);
 	}
 
 	/**
@@ -98,7 +104,7 @@ public class Analyzer {
 				coverageVisitor.visitCoverage(coverage);
 			}
 		};
-		return new ClassProbesAdapter(analyzer, false);
+		return new ClassProbesAdapter(analyzer, false, classPool);
 	}
 
 	private void analyzeClass(final byte[] source) {

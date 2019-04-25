@@ -264,7 +264,7 @@ public class CyclomaticComplexityTest {
 		final CoverageBuilder builder = new CoverageBuilder();
 		final ExecutionDataStore store = new ExecutionDataStore();
 		data.collect(store, new SessionInfoStore(), false);
-		final Analyzer analyzer = new Analyzer(store, builder);
+		final Analyzer analyzer = new Analyzer(store, builder, null);
 		analyzer.analyzeClass(bytes, "TestTarget");
 		final Collection<IClassCoverage> classes = builder.getClasses();
 		assertEquals(1, classes.size(), 0.0);

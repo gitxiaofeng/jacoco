@@ -16,6 +16,9 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.commons.AnalyzerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A {@link org.objectweb.asm.ClassVisitor} that calculates probes for every
  * method.
@@ -29,7 +32,7 @@ public class ClassProbesAdapter extends ClassVisitor implements
 	private final ClassProbesVisitor cv;
 
 	private final boolean trackFrames;
-
+	private final List<String> methodNames;
 	private int counter = 0;
 
 	private String name;
@@ -43,10 +46,11 @@ public class ClassProbesAdapter extends ClassVisitor implements
 	 *            if <code>true</code> stackmap frames are tracked and provided
 	 */
 	public ClassProbesAdapter(final ClassProbesVisitor cv,
-			final boolean trackFrames) {
+			final boolean trackFrames, final List<String> methodNames) {
 		super(InstrSupport.ASM_API_VERSION, cv);
 		this.cv = cv;
 		this.trackFrames = trackFrames;
+		this.methodNames = methodNames;
 	}
 
 	@Override
@@ -63,12 +67,18 @@ public class ClassProbesAdapter extends ClassVisitor implements
 		final MethodProbesVisitor methodProbes;
 		final MethodProbesVisitor mv = cv.visitMethod(access, name, desc,
 				signature, exceptions);
-		if (mv == null) {
+		System.out.println("name is: " + name);
+		System.out.println("cv is: " + cv.toString());
+		System.out.println("trackFrames is: " + trackFrames);
+		String[] names = this.name.split("/");
+		if (mv != null && (methodNames == null || methodNames.isEmpty() || methodNames.contains(names[names.length-1]))) {
+			System.out.println("name is included : " + name);
+			methodProbes = mv;
+		} else {
 			// We need to visit the method in any case, otherwise probe ids
 			// are not reproducible
+			System.out.println("name is not included : " + name);
 			methodProbes = EMPTY_METHOD_PROBES_VISITOR;
-		} else {
-			methodProbes = mv;
 		}
 		return new MethodSanitizer(null, access, name, desc, signature,
 				exceptions) {

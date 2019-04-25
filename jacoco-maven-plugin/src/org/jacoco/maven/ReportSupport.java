@@ -194,7 +194,7 @@ final class ReportSupport {
 
 		if (classesDir.isDirectory()) {
 			final Analyzer analyzer = new Analyzer(
-					loader.getExecutionDataStore(), builder);
+					loader.getExecutionDataStore(), builder, null);
 			final FileFilter filter = new FileFilter(includes, excludes);
 			for (final File file : filter.getFiles(classesDir)) {
 				analyzer.analyzeAll(file);

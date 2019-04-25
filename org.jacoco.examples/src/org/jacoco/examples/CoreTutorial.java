@@ -142,7 +142,7 @@ public final class CoreTutorial {
 		// Together with the original class definition we can calculate coverage
 		// information:
 		final CoverageBuilder coverageBuilder = new CoverageBuilder();
-		final Analyzer analyzer = new Analyzer(executionData, coverageBuilder);
+		final Analyzer analyzer = new Analyzer(executionData, coverageBuilder, null);
 		original = getTargetClass(targetName);
 		analyzer.analyzeClass(original, targetName);
 		original.close();

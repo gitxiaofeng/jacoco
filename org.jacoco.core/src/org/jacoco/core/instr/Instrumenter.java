@@ -84,7 +84,7 @@ public class Instrumenter {
 		final int version = InstrSupport.getMajorVersion(reader);
 		final ClassVisitor visitor = new ClassProbesAdapter(
 				new ClassInstrumenter(strategy, writer),
-				InstrSupport.needsFrames(version));
+				InstrSupport.needsFrames(version), null);
 		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
 		return writer.toByteArray();
 	}

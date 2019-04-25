@@ -14,7 +14,10 @@ package org.jacoco.cli.internal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.jacoco.cli.internal.commands.JGitDiffInfo;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 
@@ -101,8 +104,11 @@ public class Main extends Command {
 	public static void main(final String... args) throws Exception {
 		final PrintWriter out = new PrintWriter(System.out, true);
 		final PrintWriter err = new PrintWriter(System.err, true);
+		List<String> modifiedClass = new ArrayList<String>();
 		final int returncode = new Main(args).execute(out, err);
 		System.exit(returncode);
+//		JGitDiffInfo diffInfo = new JGitDiffInfo("/Users/xx/Documents/code/xx/xx/.git/");
+//		modifiedClass = diffInfo.getDiff("link_modify_test");
 	}
 
 }

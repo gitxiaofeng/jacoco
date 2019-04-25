@@ -74,7 +74,7 @@ public class ClassProbesAdapterTest {
 	@Test
 	public void testProbeCounter() {
 		final MockClassVisitor cv = new MockClassVisitor();
-		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false);
+		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false, null);
 		assertEquals(0, adapter.nextId());
 		assertEquals(1, adapter.nextId());
 		assertEquals(2, adapter.nextId());
@@ -91,7 +91,7 @@ public class ClassProbesAdapterTest {
 				return new MockMethodVisitor();
 			}
 		};
-		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false);
+		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false, null);
 		adapter.visit(Opcodes.V1_5, 0, "Foo", null, "java/lang/Object", null);
 		writeMethod(adapter);
 		writeMethod(adapter);
@@ -105,7 +105,7 @@ public class ClassProbesAdapterTest {
 	@Test
 	public void testVisitMethodNullMethodVisitor() {
 		final MockClassVisitor cv = new MockClassVisitor();
-		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false);
+		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false, null);
 		writeMethod(adapter); // 1 probe
 		writeMethodWithBranch(adapter); // 3 probes
 		writeMethodWithTableSwitch(adapter); // 3 probes
@@ -124,7 +124,7 @@ public class ClassProbesAdapterTest {
 				return mv;
 			}
 		};
-		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, true);
+		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, true, null);
 		writeMethodWithBranch(adapter);
 		adapter.visitEnd();
 		assertTrue(mv.frame);
@@ -140,7 +140,7 @@ public class ClassProbesAdapterTest {
 				return mv;
 			}
 		};
-		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false);
+		final ClassProbesAdapter adapter = new ClassProbesAdapter(cv, false, null);
 		writeMethodWithBranch(adapter);
 		adapter.visitEnd();
 		assertFalse(mv.frame);

@@ -560,7 +560,7 @@ public class ReportTask extends Task {
 	private IBundleCoverage createBundle(final GroupElement group)
 			throws IOException {
 		final CoverageBuilder builder = new CoverageBuilder();
-		final Analyzer analyzer = new Analyzer(executionDataStore, builder);
+		final Analyzer analyzer = new Analyzer(executionDataStore, builder, null);
 		for (final Iterator<?> i = group.classfiles.iterator(); i.hasNext();) {
 			final Resource resource = (Resource) i.next();
 			if (resource.isDirectory() && resource instanceof FileResource) {

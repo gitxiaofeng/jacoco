@@ -42,7 +42,7 @@ public class AnalysisTimeScenario extends TimedScenario {
 			public void visitCoverage(IClassCoverage coverage) {
 			}
 		};
-		final Analyzer analyzer = new Analyzer(executionData, visitor);
+		final Analyzer analyzer = new Analyzer(executionData, visitor, null);
 		return new Callable<Void>() {
 			public Void call() throws Exception {
 				for (int i = 0; i < count; i++) {

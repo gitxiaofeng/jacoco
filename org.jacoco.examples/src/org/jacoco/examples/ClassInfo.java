@@ -37,7 +37,7 @@ public final class ClassInfo implements ICoverageVisitor {
 	 */
 	public ClassInfo(final PrintStream out) {
 		this.out = out;
-		analyzer = new Analyzer(new ExecutionDataStore(), this);
+		analyzer = new Analyzer(new ExecutionDataStore(), this, null);
 	}
 
 	/**

@@ -59,6 +59,14 @@ public class Report extends Command {
 	@Option(name = "--name", usage = "name used for this report", metaVar = "<name>")
 	String name = "JaCoCo Coverage Report";
 
+	//link_modify_test
+	@Option(name = "--branch", usage = "test branch", metaVar = "<branch>")
+	String branch = "test branch name";
+
+	//"/Users/xx/Documents/code/xx/xx/.git/"
+	@Option(name = "--repository", usage = "test repository", metaVar = "<repository>")
+	String repository = "test repository name";
+
 	@Option(name = "--encoding", usage = "source file encoding (by default platform encoding is used)", metaVar = "<charset>")
 	String encoding;
 
@@ -104,7 +112,19 @@ public class Report extends Command {
 	private IBundleCoverage analyze(final ExecutionDataStore data,
 			final PrintWriter out) throws IOException {
 		final CoverageBuilder builder = new CoverageBuilder();
-		final Analyzer analyzer = new Analyzer(data, builder);
+		JGitDiffInfo diffInfo = new JGitDiffInfo(repository);
+		List<String> classFiles = null;
+		try {
+			classFiles = diffInfo.getDiff(branch);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("branch is: " + branch);
+		System.out.println("repository is: " + repository);
+		System.out.println("classfiles is: " + classfiles);
+
+		final Analyzer analyzer = new Analyzer(data, builder, classFiles);
 		for (final File f : classfiles) {
 			analyzer.analyzeAll(f);
 		}

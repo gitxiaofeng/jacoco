@@ -53,7 +53,7 @@ public class ClassInfo extends Command {
 			out.println("[WARN] No class files provided.");
 		} else {
 			final Analyzer analyzer = new Analyzer(new ExecutionDataStore(),
-					new Printer(out));
+					new Printer(out), null);
 			for (final File file : classfiles) {
 				analyzer.analyzeAll(file);
 			}

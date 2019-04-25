@@ -73,7 +73,7 @@ public class AnalyzerTest {
 	public void setup() {
 		classes = new HashMap<String, IClassCoverage>();
 		executionData = new ExecutionDataStore();
-		analyzer = new Analyzer(executionData, new EmptyStructureVisitor());
+		analyzer = new Analyzer(executionData, new EmptyStructureVisitor(), null);
 	}
 
 	@Test
